@@ -1,0 +1,8 @@
+.post > td > img {
+    width: 40px;
+    height: 60px;
+}
+
+.post {
+   vertical-align: middle;
+}
