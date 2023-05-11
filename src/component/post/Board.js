@@ -2,9 +2,8 @@ import DisplayCreatedAt from "../../formats/DisplayCreatedAt";
 
 const Board = ( {posts} ) => {
     return(
-        <div className="card card-body">
             <table className="table">
-                <thead>
+                <thead className="post-head">
                 <tr>
                     <th scope="col" style={{ width: "10%" }}>
                         <i className="bi bi-clock"></i>
@@ -43,7 +42,6 @@ const Board = ( {posts} ) => {
                 ))}
                 </tbody>
             </table>
-        </div>
     );
 }
 

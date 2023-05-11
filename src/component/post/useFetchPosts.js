@@ -2,7 +2,7 @@ import axios from "axios";
 import { API_BASE_URL } from "../../config/config";
 import { useState, useEffect } from "react";
 
-const useFetchPosts = (page, size, category, sortType) => {
+const useFetchPosts = (page, size, category, sortType, submittedSearchQuery) => {
     const [postsData, setPostsData] = useState([]);
     const [postCount, setPostCount] = useState(0);
 
@@ -10,7 +10,7 @@ const useFetchPosts = (page, size, category, sortType) => {
         const fetchPosts = async () => {
             try {
                 const response = await axios.get(
-                    `${API_BASE_URL}/api/posts?page=${page - 1}&size=${size}&category=${category}&sortType=${sortType}`
+                    `${API_BASE_URL}/api/posts?page=${page - 1}&size=${size}&category=${category}&sortType=${sortType}&searchQuery=${submittedSearchQuery}`
                 );
                 setPostsData(response.data);
             } catch (error) {
@@ -21,7 +21,7 @@ const useFetchPosts = (page, size, category, sortType) => {
         const fetchPostCount = async () => {
             try {
                 const response = await axios.get(
-                    `${API_BASE_URL}/api/posts/count?category=${category}&sortType=${sortType}`
+                    `${API_BASE_URL}/api/posts/count?category=${category}&sortType=${sortType}&searchQuery=${submittedSearchQuery}`
                 );
                 setPostCount(response.data);
             } catch (error) {
@@ -31,7 +31,7 @@ const useFetchPosts = (page, size, category, sortType) => {
 
         fetchPosts();
         fetchPostCount();
-    }, [page, size, category, sortType]);
+    }, [page, size, category, sortType, submittedSearchQuery]);
 
     return [postsData, postCount];
 };
