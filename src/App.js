@@ -3,6 +3,7 @@ import {BrowserRouter, Route, Routes} from "react-router-dom";
 import Home from "./page/Home";
 import Community from "./page/Community";
 import Read from "./page/Read";
+import Login from "./page/Login";
 
 function App() {
   return (
@@ -12,6 +13,7 @@ function App() {
               <Route path="/" element={<Home />}/>
               <Route path="/read/:postId" element={<Read />}/>
               <Route path="/community/:category" element={<Community />}/>
+              <Route path="/login" element={<Login />} />
           </Routes>
         </BrowserRouter>
     </AuthProvider>

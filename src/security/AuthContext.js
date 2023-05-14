@@ -3,8 +3,7 @@ import axios from "axios";
 import { API_BASE_URL } from "../config/config";
 
 const initialState = {
-    // isAuthenticated: localStorage.getItem('token') ? true : false
-    isAuthenticated: true
+    isAuthenticated: localStorage.getItem('token') ? true : false
 };
 
 const AuthContext = createContext(initialState);

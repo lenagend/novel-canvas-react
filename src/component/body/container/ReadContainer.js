@@ -2,6 +2,7 @@ import {useParams} from "react-router-dom";
 import useFetchPost from "../../post/useFetchPost";
 import useIncrementViewCount from "../../post/useIncrementViewCount";
 import Loading from "./Loading";
+import LikeButton from "../../post/LikeButton";
 
 const ReadContainer = () => {
     const { postId } = useParams();
@@ -25,7 +26,11 @@ const ReadContainer = () => {
                                 <p dangerouslySetInnerHTML={{ __html: post.content }}></p>
                             </div>
                             <div className="card-footer">
-                              댓글이나 다른기능들
+                                <ul className="nav nav-stack py-3 small">
+                                    <li className="nav-item">
+                                        <LikeButton id={post.id} isPost={true} />
+                                    </li>
+                                </ul>
                             </div>
                         </div>
                     </div>
