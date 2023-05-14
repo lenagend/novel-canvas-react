@@ -1,45 +1,46 @@
 import DisplayCreatedAt from "../../formats/DisplayCreatedAt";
+import React from "react";
+import {Link} from "react-router-dom";
 
 const Board = ( {posts} ) => {
     return(
             <table className="table">
-                <thead className="post-head">
-                <tr>
-                    <th scope="col" style={{ width: "10%" }}>
-                        <i className="bi bi-clock"></i>
+                <thead>
+                <tr className="text-center">
+                    <th scope="col" style={{ width: "80px" }}>
                     </th>
-                    <th scope="col" style={{ width: "5%" }}>
-                        <i className="bi bi-hand-thumbs-up"></i>
+                    <th scope="col" style={{ width: "auto" }}>
                     </th>
-                    <th scope="col" style={{ width: "55%" }}></th>
-                    <th scope="col" style={{ width: "20%" }}>
-                        <i className="bi bi-person"></i>
-                    </th>
-                    <th scope="col" style={{ width: "5%" }}>
-                        <i className="bi bi-eye"></i>
+                    <th scope="col" style={{ width: "130px" }}>
+                        <i className="bi bi-pencil"></i> <i className="bi bi-clock"></i>
                     </th>
                 </tr>
                 </thead>
                 <tbody>
                 {posts.map((post, index) => (
-                    <tr className="post" key={post.id}>
-                        <td>
-                            <DisplayCreatedAt createdAt={post.createdAt} />
-                        </td>
-                        <td>
-                            {post.likeCount}
-                        </td>
-                        <td>
-                            {post.title} ({post.commentCount})
-                        </td>
-                        <td>
-                            {post.username}
-                        </td>
-                        <td>
-                            {post.viewCount}
-                        </td>
-                    </tr>
+                    <React.Fragment key={post.id}>
+                        <tr>
+                            <td rowSpan={2}>
+                                <img style={{width: "60px", height: "90px"}} src="/assets/images/bg/01.jpg" alt="표지"/>
+                            </td>
+                            <td className="post border-bottom-0">
+                                <Link to={`/read/${post.id}`}>{post.title}</Link>
+                            </td>
+                            <td className="post border-bottom-0">
+                                테스트유저임
+                            </td>
+                        </tr>
+                        <tr>
+                            <td >
+                                <i className="bi bi-chat-fill pe-1"></i> ({post.commentCount}) <i className="bi bi-hand-thumbs-up-fill"></i> ({post.likeCount}) <i className="bi bi-eye-fill"></i> ({post.viewCount})
+                            </td>
+                            <td className="text-center">
+                                <DisplayCreatedAt createdAt={post.createdAt} />
+                            </td>
+                        </tr>
+                    </React.Fragment>
                 ))}
+
                 </tbody>
             </table>
     );

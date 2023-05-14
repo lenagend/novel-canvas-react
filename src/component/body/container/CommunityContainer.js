@@ -5,7 +5,6 @@ import {useEffect, useState} from "react";
 import {LIMIT} from "../../../config/config";
 import Pagenation from "../../post/Pagenation";
 import Search from "../../post/Search";
-import MobileBoard from "../../post/MobileBoard";
 
 const CommunityContainer = () => {
     const { category } = useParams();
@@ -15,7 +14,6 @@ const CommunityContainer = () => {
     const [submittedSearchQuery, setSubmittedSearchQuery] = useState("");
     const [posts, postCount] = useFetchPosts(currentPage, LIMIT, category, 'createdAt', submittedSearchQuery);
     const lastPage = Math.ceil(postCount / LIMIT);
-    const [isMobile, setIsMobile] = useState(window.innerWidth <= 768);
 
     const handleSubmitSearch = (query) => {
         setSubmittedSearchQuery(query);
@@ -27,20 +25,6 @@ const CommunityContainer = () => {
         setSubmittedSearchQuery("");
     }, [category]);
 
-    // 뷰포트 크기가 변경될 때마다 isMobile 상태를 업데이트합니다.
-    useEffect(() => {
-        const handleResize = () => {
-            setIsMobile(window.innerWidth <= 768);
-        };
-
-        window.addEventListener('resize', handleResize);
-
-        // cleanup 함수로 이벤트 리스너를 제거합니다.
-        return () => {
-            window.removeEventListener('resize', handleResize);
-        };
-    }, []);
-
     return(
         <main>
             <div className="container">
@@ -51,7 +35,7 @@ const CommunityContainer = () => {
                                 <h1 className="card-title h4">{category}</h1>
                             </div>
                             <div className="card-body">
-                                {isMobile ? <MobileBoard posts={posts} /> : <Board posts={posts}/> }
+                                 <Board posts={posts}/>
                             </div>
                             <div className="card-footer">
                                 <div className=" mx-auto p-3">

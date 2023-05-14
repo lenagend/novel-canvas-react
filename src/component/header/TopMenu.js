@@ -8,13 +8,13 @@ const TopMenu = () => {
                 <a className="nav-link dropdown-toggle" href="#" id="homeMenu"
                    data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">소설</a>
                 <ul className="dropdown-menu" aria-labelledby="homeMenu">
-                    <li><a className="dropdown-item" href="/community/">판타지</a></li>
-                    <li><a className="dropdown-item" href="index-classic.html">무협</a></li>
-                    <li><a className="dropdown-item" href="index-post.html">현대</a></li>
-                    <li><a className="dropdown-item" href="index-video.html">로맨스</a></li>
-                    <li><a className="dropdown-item" href="index-event.html">기타</a></li>
+                    <li><Link className="dropdown-item" to="/novel/fantasy">판타지</Link></li>
+                    <li><Link className="dropdown-item" to="/novel/oriental">무협</Link></li>
+                    <li><Link className="dropdown-item" to="/novel/modern">현대</Link></li>
+                    <li><Link className="dropdown-item" to="/novel/romance">로맨스</Link></li>
+                    <li><Link className="dropdown-item" to="/novel/etc">기타</Link></li>
                     <li className="dropdown-divider"></li>
-                    <li><a className="dropdown-item" href="app-download.html">19+</a></li>
+                    <li><Link className="dropdown-item" to="/novel/19">19+</Link></li>
                 </ul>
             </li>
             <li className="nav-item dropdown">

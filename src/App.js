@@ -2,6 +2,7 @@ import {AuthProvider} from "./security/AuthContext";
 import {BrowserRouter, Route, Routes} from "react-router-dom";
 import Home from "./page/Home";
 import Community from "./page/Community";
+import Read from "./page/Read";
 
 function App() {
   return (
@@ -9,6 +10,7 @@ function App() {
         <BrowserRouter>
           <Routes>
               <Route path="/" element={<Home />}/>
+              <Route path="/read/:postId" element={<Read />}/>
               <Route path="/community/:category" element={<Community />}/>
           </Routes>
         </BrowserRouter>
