@@ -23,6 +23,8 @@ const CommunityContainer = () => {
     useEffect(() => {
         setSearchQuery("");
         setSubmittedSearchQuery("");
+        setCurrentPage(1);
+        setPageGroup(1);
     }, [category]);
 
     return(

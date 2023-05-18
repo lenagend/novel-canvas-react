@@ -1,6 +1,7 @@
 import { createContext, useState, useEffect } from 'react';
 import axios from "axios";
 import { API_BASE_URL } from "../config/config";
+import { v4 as uuidv4 } from 'uuid';
 
 const initialState = {
     isAuthenticated: localStorage.getItem('token') ? true : false
@@ -11,9 +12,17 @@ const AuthContext = createContext(initialState);
 export const AuthProvider = ({ children }) => {
     const [isAuthenticated, setIsAuthenticated] = useState(initialState.isAuthenticated);
     const [userInfo, setUserInfo] = useState([]);
+    const [token, setToken] = useState(localStorage.getItem('token') || "");
 
     useEffect(() => {
+        let uniqueId = localStorage.getItem('uniqueId');
+        if (!uniqueId) {
+            uniqueId = uuidv4();
+            localStorage.setItem('uniqueId', uniqueId);
+        }
+
         const token = localStorage.getItem('token');
+        setToken(token);
         if (token) {
             axios.get(`${API_BASE_URL}/api/verify`, { headers: { Authorization: `Bearer ${token}` } })
                 .then(() => {
@@ -32,6 +41,7 @@ export const AuthProvider = ({ children }) => {
             const response = await axios.post(`${API_BASE_URL}/api/login`, { username, password });
             const token = response.data.token;
             localStorage.setItem('token', token);
+            setToken(token);
             setIsAuthenticated(true);
             fetchUserInfo();
 
@@ -45,6 +55,7 @@ export const AuthProvider = ({ children }) => {
 
     const logout = () => {
         localStorage.removeItem('token');
+        setToken("");
         setIsAuthenticated(false);
     };
 
@@ -63,7 +74,7 @@ export const AuthProvider = ({ children }) => {
     };
 
     return (
-        <AuthContext.Provider value={{ isAuthenticated, setIsAuthenticated, logout, login, userInfo, setUserInfo, fetchUserInfo }}>
+        <AuthContext.Provider value={{ isAuthenticated, setIsAuthenticated, logout, login, userInfo, setUserInfo, fetchUserInfo, token }}>
             {children}
         </AuthContext.Provider>
     );

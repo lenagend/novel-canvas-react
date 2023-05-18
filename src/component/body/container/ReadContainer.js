@@ -3,6 +3,7 @@ import useFetchPost from "../../post/useFetchPost";
 import useIncrementViewCount from "../../post/useIncrementViewCount";
 import Loading from "./Loading";
 import LikeButton from "../../post/LikeButton";
+import DisplayCreatedAt from "../../../formats/DisplayCreatedAt";
 
 const ReadContainer = () => {
     const { postId } = useParams();
@@ -20,7 +21,15 @@ const ReadContainer = () => {
                     <div className="col-md-6 col-lg-6 vstack gap-4 mx-auto">
                         <div className="card">
                             <div className="card-header">
-                                <h1 className="card-title h4">{post.title}</h1>
+                                <div className="d-flex align-items-center justify-content-between flex-wrap post-header">
+                                    <div>
+                                        <h1 className="card-title h4">{post.title}</h1>
+                                    </div>
+                                    <div className="d-flex flex-column">
+                                        <div className="username" style={{textAlign: "right"}}><span>{post.username}</span></div>
+                                        <div className="createdAt" style={{textAlign: "right"}}><span><DisplayCreatedAt createdAt={post.createdAt} /> </span></div>
+                                    </div>
+                                </div>
                             </div>
                             <div className="card-body">
                                 <p dangerouslySetInnerHTML={{ __html: post.content }}></p>

@@ -6,3 +6,13 @@
 .post {
    vertical-align: middle;
 }
+
+@media (max-width: 768px) {
+    .card-header .post-header{
+        flex-direction: column;
+    }
+
+    .username, .createdAt {
+        text-align: center !important;
+    }
+}

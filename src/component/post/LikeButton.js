@@ -7,20 +7,18 @@ import AuthContext from "../../security/AuthContext";
 const LikeButton = ({ id, isPost }) => {
     const [liked, setLiked] = useState(false);
     const [likeCount, setLikeCount] = useState(0);
-    const { isAuthenticated, fetchUserInfo } = useContext(AuthContext);
+    const { isAuthenticated, fetchUserInfo, token } = useContext(AuthContext); // Add token here
     const navigate = useNavigate();
 
     useEffect(() => {
-        const token = localStorage.getItem('token');
-        if (token) { // 이 부분을 추가하세요.
+        if (token) {
             fetchIsLiked();
         }
         fetchLikeCount();
 
-    }, [id, isPost]);
+    }, [id, isPost, token]);
 
     const fetchIsLiked = () => {
-        const token = localStorage.getItem('token');
         if(token){
             axios.get(`${API_BASE_URL}/api/${isPost ? 'posts' : 'comments'}/${id}/liked`, {
                 headers: {
@@ -51,7 +49,6 @@ const LikeButton = ({ id, isPost }) => {
             navigate('/login', { state: { originPath: window.location.pathname } });
             return;
         }
-        const token = localStorage.getItem('token');
 
         try {
             const config = {
@@ -72,19 +69,20 @@ const LikeButton = ({ id, isPost }) => {
     };
 
     return (
-            <a
-                    href="#!"
-                    className={`nav-link ${liked ? 'active' : ''}`}
-                    onClick={(e) => {
-                        e.preventDefault();
-                        e.stopPropagation();
-                        toggleLike();
-                    }}
-                >
-                    <i className="bi bi-hand-thumbs-up-fill pe-1"></i>
-                    좋아요 (<span>{likeCount}</span>)
-                </a>
+        <a
+            href="#!"
+            className={`nav-link ${liked ? 'active' : ''}`}
+            onClick={(e) => {
+                e.preventDefault();
+                e.stopPropagation();
+                toggleLike();
+            }}
+        >
+            <i className="bi bi-hand-thumbs-up-fill pe-1"></i>
+            좋아요 (<span>{likeCount}</span>)
+        </a>
     );
 };
+
 
 export default LikeButton;
