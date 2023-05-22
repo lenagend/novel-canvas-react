@@ -4,18 +4,16 @@ import {useNavigate} from "react-router-dom";
 import {API_BASE_URL} from "../../config/config";
 import AuthContext from "../../security/AuthContext";
 
-const LikeButton = ({ id, isPost }) => {
+const LikeButton = ({ id, isPost, likeCount }) => {
     const [liked, setLiked] = useState(false);
-    const [likeCount, setLikeCount] = useState(0);
-    const { isAuthenticated, fetchUserInfo, token } = useContext(AuthContext); // Add token here
+    const [localLikeCount, setLocalLikeCount] = useState(likeCount);
+    const { isAuthenticated, token } = useContext(AuthContext); // Add token here
     const navigate = useNavigate();
 
     useEffect(() => {
         if (token) {
             fetchIsLiked();
         }
-        fetchLikeCount();
-
     }, [id, isPost, token]);
 
     const fetchIsLiked = () => {
@@ -37,7 +35,8 @@ const LikeButton = ({ id, isPost }) => {
         axios
             .get(`${API_BASE_URL}/api/${isPost ? 'posts' : 'comments'}/${id}/likeCount`)
             .then((response) => {
-                setLikeCount(response.data);
+                setLocalLikeCount(response.data);
+                console.log(response.data);
             })
             .catch((error) => {
                 console.error('Error fetching like count:', error);
@@ -45,7 +44,7 @@ const LikeButton = ({ id, isPost }) => {
     }
 
     const toggleLike = async () => {
-        if (!isAuthenticated) {
+        if (!isAuthenticated || !token) {
             navigate('/login', { state: { originPath: window.location.pathname } });
             return;
         }
@@ -59,12 +58,14 @@ const LikeButton = ({ id, isPost }) => {
 
             const url = isPost ? `${API_BASE_URL}/api/posts/${id}/like` : `${API_BASE_URL}/api/comments/${id}/like`;
             await axios.put(url, {}, config);
-            fetchUserInfo();
             fetchIsLiked();
             fetchLikeCount();
 
         } catch (error) {
             console.error(error);
+            if(error.response && error.response.status === 403){
+                navigate('/login', { state: { originPath: window.location.pathname } });
+            }
         }
     };
 
@@ -79,7 +80,7 @@ const LikeButton = ({ id, isPost }) => {
             }}
         >
             <i className="bi bi-hand-thumbs-up-fill pe-1"></i>
-            좋아요 (<span>{likeCount}</span>)
+            좋아요 (<span>{localLikeCount}</span>)
         </a>
     );
 };

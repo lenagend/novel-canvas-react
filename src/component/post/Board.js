@@ -1,6 +1,7 @@
 import DisplayCreatedAt from "../../formats/DisplayCreatedAt";
 import React from "react";
 import {Link} from "react-router-dom";
+import EllipsisText from "../../formats/EllipsisText";
 
 const Board = ( {posts} ) => {
     return(
@@ -9,9 +10,10 @@ const Board = ( {posts} ) => {
                 <tr className="text-center">
                     <th scope="col" style={{ width: "80px" }}>
                     </th>
-                    <th scope="col" style={{ width: "auto" }}>
+                    <th scope="col" style={{ width: "auto", textAlign: "left"}}>
+
                     </th>
-                    <th scope="col" style={{ width: "130px" }}>
+                    <th scope="col" style={{ width: "110px" }}>
                         <i className="bi bi-pencil"></i> <i className="bi bi-clock"></i>
                     </th>
                 </tr>
@@ -24,7 +26,7 @@ const Board = ( {posts} ) => {
                                 <img style={{width: "60px", height: "90px"}} src="/assets/images/bg/01.jpg" alt="표지"/>
                             </td>
                             <td className="post border-bottom-0">
-                                <Link to={`/read/${post.id}`}>{post.title}</Link>
+                                <Link to={`/read/${post.id}`}><EllipsisText text={post.title} maxLength={16}/></Link>
                             </td>
                             <td className="post border-bottom-0">
                                 테스트유저임
@@ -32,7 +34,7 @@ const Board = ( {posts} ) => {
                         </tr>
                         <tr>
                             <td >
-                                <i className="bi bi-chat-fill pe-1"></i> ({post.commentCount}) <i className="bi bi-hand-thumbs-up-fill"></i> ({post.likeCount}) <i className="bi bi-eye-fill"></i> ({post.viewCount})
+                                <i className="bi bi-chat-fill pe-1"></i>({post.commentCount}) <i className="bi bi-hand-thumbs-up-fill"></i>({post.likeCount}) <i className="bi bi-eye-fill"></i>({post.viewCount})
                             </td>
                             <td className="text-center">
                                 <DisplayCreatedAt createdAt={post.createdAt} />

@@ -4,6 +4,7 @@ import useIncrementViewCount from "../../post/useIncrementViewCount";
 import Loading from "./Loading";
 import LikeButton from "../../post/LikeButton";
 import DisplayCreatedAt from "../../../formats/DisplayCreatedAt";
+import React from "react";
 
 const ReadContainer = () => {
     const { postId } = useParams();
@@ -37,7 +38,10 @@ const ReadContainer = () => {
                             <div className="card-footer">
                                 <ul className="nav nav-stack py-3 small">
                                     <li className="nav-item">
-                                        <LikeButton id={post.id} isPost={true} />
+                                        <i className="bi bi-eye-fill"></i> 조회수 ({post.viewCount})
+                                    </li>
+                                    <li className="nav-item">
+                                        <LikeButton id={post.id} isPost={true} likeCount={post.likeCount}/>
                                     </li>
                                 </ul>
                             </div>

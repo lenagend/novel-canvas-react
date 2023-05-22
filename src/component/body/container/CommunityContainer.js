@@ -1,7 +1,7 @@
 import Board from "../../post/Board";
 import {useParams} from "react-router-dom";
 import useFetchPosts from "../../post/useFetchPosts";
-import {useEffect, useState} from "react";
+import React, {useEffect, useState} from "react";
 import {LIMIT} from "../../../config/config";
 import Pagenation from "../../post/Pagenation";
 import Search from "../../post/Search";
@@ -12,7 +12,8 @@ const CommunityContainer = () => {
     const [pageGroup, setPageGroup] = useState(1);
     const [searchQuery, setSearchQuery] = useState("");
     const [submittedSearchQuery, setSubmittedSearchQuery] = useState("");
-    const [posts, postCount] = useFetchPosts(currentPage, LIMIT, category, 'createdAt', submittedSearchQuery);
+    const [sortType, setSortType] = useState("createdAt")
+    const [posts, postCount] = useFetchPosts(currentPage, LIMIT, category, sortType, submittedSearchQuery);
     const lastPage = Math.ceil(postCount / LIMIT);
 
     const handleSubmitSearch = (query) => {
@@ -25,7 +26,7 @@ const CommunityContainer = () => {
         setSubmittedSearchQuery("");
         setCurrentPage(1);
         setPageGroup(1);
-    }, [category]);
+    }, [category, sortType]);
 
     return(
         <main>
@@ -33,8 +34,15 @@ const CommunityContainer = () => {
                 <div className="row g-4">
                     <div className="col-md-6 col-lg-6 vstack gap-4 mx-auto">
                         <div className="card">
-                            <div className="card-header">
-                                <h1 className="card-title h4">{category}</h1>
+                            <div className="card-header d-flex justify-content-between">
+                                <div>
+                                    <h1 className="card-title h4">{category}</h1>
+                                </div>
+                                <div>
+                                    <button className="btn btn-primary btn-xs" onClick={() => setSortType('createdAt')}>최신</button>&nbsp;
+                                    <button className="btn btn-success btn-xs" onClick={() => setSortType('likeCount')}>인기</button>&nbsp;
+                                    <button className="btn btn-warning btn-xs" onClick={() => setSortType('viewCount')}>조회</button>
+                                </div>
                             </div>
                             <div className="card-body">
                                  <Board posts={posts}/>
