@@ -5,6 +5,10 @@ import React, {useEffect, useState} from "react";
 import {LIMIT} from "../../../config/config";
 import Pagenation from "../../post/Pagenation";
 import Search from "../../post/Search";
+import DatePicker from "react-datepicker";
+
+import "react-datepicker/dist/react-datepicker.css";
+import { ko } from "date-fns/esm/locale";
 
 const CommunityContainer = () => {
     const { category } = useParams();
@@ -13,8 +17,11 @@ const CommunityContainer = () => {
     const [searchQuery, setSearchQuery] = useState("");
     const [submittedSearchQuery, setSubmittedSearchQuery] = useState("");
     const [sortType, setSortType] = useState("createdAt")
-    const [posts, postCount] = useFetchPosts(currentPage, LIMIT, category, sortType, submittedSearchQuery);
+    const [startDate, setStartDate] = useState(null);
+    const [endDate, setEndDate] = useState(null);
+    const [posts, postCount] = useFetchPosts(currentPage, LIMIT, category, sortType, submittedSearchQuery, startDate, endDate);
     const lastPage = Math.ceil(postCount / LIMIT);
+    const [showDatePickerWrap, setShowDatePickerWrap] = useState(false);
 
     const handleSubmitSearch = (query) => {
         setSubmittedSearchQuery(query);
@@ -28,6 +35,12 @@ const CommunityContainer = () => {
         setPageGroup(1);
     }, [category, sortType]);
 
+    const handleSortButtonClick = (sortType) =>{
+        setSortType(sortType);
+        setShowDatePickerWrap(true);
+        setStartDate(new Date());
+        setEndDate(new Date());
+    }
     return(
         <main>
             <div className="container">
@@ -38,10 +51,33 @@ const CommunityContainer = () => {
                                 <div>
                                     <h1 className="card-title h4">{category}</h1>
                                 </div>
-                                <div>
-                                    <button className="btn btn-primary btn-xs" onClick={() => setSortType('createdAt')}>최신</button>&nbsp;
-                                    <button className="btn btn-success btn-xs" onClick={() => setSortType('likeCount')}>인기</button>&nbsp;
-                                    <button className="btn btn-warning btn-xs" onClick={() => setSortType('viewCount')}>조회</button>
+                                <div className="d-flex flex-column gap-1">
+                                    <div className="d-flex justify-content-between" style={{width : "150px"}}>
+                                        <button className="btn btn-primary btn-xs" onClick={() => handleSortButtonClick('createdAt')}>최신</button>
+                                        <button className="btn btn-success btn-xs" onClick={() => handleSortButtonClick('likeCount')}>인기</button>
+                                        <button className="btn btn-warning btn-xs" onClick={() => handleSortButtonClick('viewCount')}>조회</button>
+                                    </div>
+                                    {showDatePickerWrap && (
+                                        <div className="d-flex">
+                                            <div style={{ width: "70px" }} className="datePickerWrap">
+                                                <DatePicker
+                                                    locale={ko}
+                                                    selected={startDate}
+                                                    onChange={(date) => setStartDate(date)}
+                                                />
+                                            </div>
+                                            <div>
+                                                ~
+                                            </div>
+                                            <div style={{ width: "70px" }} className="datePickerWrap">
+                                                <DatePicker
+                                                    locale={ko}
+                                                    selected={endDate}
+                                                    onChange={(date) => setEndDate(date)}
+                                                />
+                                            </div>
+                                        </div>
+                                    )}
                                 </div>
                             </div>
                             <div className="card-body">

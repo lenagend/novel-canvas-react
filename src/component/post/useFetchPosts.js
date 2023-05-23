@@ -2,7 +2,7 @@ import axios from "axios";
 import { API_BASE_URL } from "../../config/config";
 import { useState, useEffect } from "react";
 
-const useFetchPosts = (page, size, category, sortType, submittedSearchQuery) => {
+const useFetchPosts = (page, size, category, sortType, submittedSearchQuery, startDate, endDate) => {
     const [postsData, setPostsData] = useState([]);
     const [postCount, setPostCount] = useState(0);
 
@@ -10,13 +10,14 @@ const useFetchPosts = (page, size, category, sortType, submittedSearchQuery) => 
         const fetchPosts = async () => {
             try {
                 const response = await axios.get(
-                    `${API_BASE_URL}/api/posts?page=${page - 1}&size=${size}&category=${category}&sortType=${sortType}&searchQuery=${submittedSearchQuery}`
+                    `${API_BASE_URL}/api/posts?page=${page - 1}&size=${size}&category=${category}&sortType=${sortType}&searchQuery=${submittedSearchQuery}&startDate=${startDate ? startDate.toISOString() : null}&endDate=${endDate ? endDate.toISOString() : null}`
                 );
                 setPostsData(response.data);
             } catch (error) {
                 console.log("Error fetching posts: ", error);
             }
         };
+
 
         const fetchPostCount = async () => {
             try {
@@ -31,7 +32,7 @@ const useFetchPosts = (page, size, category, sortType, submittedSearchQuery) => 
 
         fetchPosts();
         fetchPostCount();
-    }, [page, size, category, sortType, submittedSearchQuery]);
+    }, [page, size, category, sortType, submittedSearchQuery, startDate, endDate]);
 
     return [postsData, postCount];
 };
