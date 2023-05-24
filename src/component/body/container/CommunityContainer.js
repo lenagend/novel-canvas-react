@@ -17,11 +17,8 @@ const CommunityContainer = () => {
     const [searchQuery, setSearchQuery] = useState("");
     const [submittedSearchQuery, setSubmittedSearchQuery] = useState("");
     const [sortType, setSortType] = useState("createdAt")
-    const [startDate, setStartDate] = useState(null);
-    const [endDate, setEndDate] = useState(null);
-    const [posts, postCount] = useFetchPosts(currentPage, LIMIT, category, sortType, submittedSearchQuery, startDate, endDate);
+    const [posts, postCount] = useFetchPosts(currentPage, LIMIT, category, sortType, submittedSearchQuery);
     const lastPage = Math.ceil(postCount / LIMIT);
-    const [showDatePickerWrap, setShowDatePickerWrap] = useState(false);
 
     const handleSubmitSearch = (query) => {
         setSubmittedSearchQuery(query);
@@ -37,9 +34,7 @@ const CommunityContainer = () => {
 
     const handleSortButtonClick = (sortType) =>{
         setSortType(sortType);
-        setShowDatePickerWrap(true);
-        setStartDate(new Date());
-        setEndDate(new Date());
+        console.log(sortType);
     }
     return(
         <main>
@@ -57,27 +52,6 @@ const CommunityContainer = () => {
                                         <button className="btn btn-success btn-xs" onClick={() => handleSortButtonClick('likeCount')}>인기</button>
                                         <button className="btn btn-warning btn-xs" onClick={() => handleSortButtonClick('viewCount')}>조회</button>
                                     </div>
-                                    {showDatePickerWrap && (
-                                        <div className="d-flex">
-                                            <div style={{ width: "70px" }} className="datePickerWrap">
-                                                <DatePicker
-                                                    locale={ko}
-                                                    selected={startDate}
-                                                    onChange={(date) => setStartDate(date)}
-                                                />
-                                            </div>
-                                            <div>
-                                                ~
-                                            </div>
-                                            <div style={{ width: "70px" }} className="datePickerWrap">
-                                                <DatePicker
-                                                    locale={ko}
-                                                    selected={endDate}
-                                                    onChange={(date) => setEndDate(date)}
-                                                />
-                                            </div>
-                                        </div>
-                                    )}
                                 </div>
                             </div>
                             <div className="card-body">

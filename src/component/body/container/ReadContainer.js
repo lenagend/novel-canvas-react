@@ -8,7 +8,6 @@ import React from "react";
 
 const ReadContainer = () => {
     const { postId } = useParams();
-    useIncrementViewCount(postId);
     const [post, error] = useFetchPost(postId);
 
     if (!post) {
