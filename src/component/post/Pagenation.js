@@ -48,7 +48,7 @@ const Pagenation = ({
 
     return(
         <nav aria-label="Page navigation">
-            <ul className="pagination justify-content-center">
+            <ul className="pagination justify-content-center m-0">
                 <li className="page-item">
                     <button
                         className="page-link"

@@ -1,14 +1,12 @@
 import Board from "../../post/Board";
-import {useParams} from "react-router-dom";
+import {Link, useParams} from "react-router-dom";
 import useFetchPosts from "../../post/useFetchPosts";
 import React, {useEffect, useState} from "react";
 import {LIMIT} from "../../../config/config";
 import Pagenation from "../../post/Pagenation";
 import Search from "../../post/Search";
-import DatePicker from "react-datepicker";
 
 import "react-datepicker/dist/react-datepicker.css";
-import { ko } from "date-fns/esm/locale";
 
 const CommunityContainer = () => {
     const { category } = useParams();
@@ -34,7 +32,6 @@ const CommunityContainer = () => {
 
     const handleSortButtonClick = (sortType) =>{
         setSortType(sortType);
-        console.log(sortType);
     }
     return(
         <main>
@@ -61,15 +58,21 @@ const CommunityContainer = () => {
                                 <div className=" mx-auto p-3">
                                     <Search searchQuery={searchQuery} setSearchQuery={setSearchQuery} onSubmit={handleSubmitSearch}/>
                                 </div>
-                                <Pagenation
-                                    currentPage={currentPage}
-                                    setCurrentPage={setCurrentPage}
-                                    pageGroup={pageGroup}
-                                    setPageGroup={setPageGroup}
-                                    lastPage={lastPage}
-                                    postCount={postCount}
-                                    LIMIT={LIMIT}
-                                />
+                                <div className="d-flex justify-content-between align-items-center">
+                                    <div></div>
+                                    <Pagenation
+                                        currentPage={currentPage}
+                                        setCurrentPage={setCurrentPage}
+                                        pageGroup={pageGroup}
+                                        setPageGroup={setPageGroup}
+                                        lastPage={lastPage}
+                                        postCount={postCount}
+                                        LIMIT={LIMIT}
+                                    />
+                                    <div>
+                                        <Link to={`/community/${category}/submit`} className="btn btn-primary btn-sm">글쓰기</Link>
+                                    </div>
+                                </div>
                             </div>
                         </div>
                     </div>
