@@ -19,6 +19,9 @@ const TopMenu = () => {
 
     return(
         <ul className="navbar-nav navbar-nav-scroll ms-auto">
+            <li className="nav-item">
+                <Link className="nav-link" to="/canvas">만들기<i className="bi bi-pencil-square"></i></Link>
+            </li>
             <li className="nav-item dropdown">
                 <a className="nav-link dropdown-toggle" href="#" id="homeMenu"
                    data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">소설</a>

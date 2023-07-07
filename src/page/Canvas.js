@@ -1,13 +1,13 @@
 import Header from "../component/header/Header";
 import ReadContainer from "../component/body/container/ReadContainer";
-import CommunitySubmitContainer from "../component/body/container/CommunitySubmitContainer";
+import CanvasContainer from "../component/body/container/CanvasContainer";
 
-const CommunitySubmit = () => {
+const Canvas = () => {
  return(
      <div className="App">
          <Header />
-         <CommunitySubmitContainer />
+         <CanvasContainer />
      </div>
  );
 }
-export default CommunitySubmit;
+export default Canvas;
