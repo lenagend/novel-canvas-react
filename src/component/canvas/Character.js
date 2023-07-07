@@ -1,6 +1,17 @@
 import {OverlayScrollbarsComponent} from "overlayscrollbars-react";
+import CharacterDisplay from "./CharacterDisplay";
 
-const Character = () => {
+const Character = ({onCharacterClick}) => {
+
+    const characters = [
+        { id: 1, name: '캐릭터1', image: '/assets/images/avatar/12.jpg', description: '냉정하고 신중한 성격의 용사' },
+        { id: 2, name: '캐릭터2', image: '/assets/images/avatar/11.jpg', description: '밝고 활발한 성격의 마법사' },
+        { id: 3, name: '캐릭터3', image: '/assets/images/avatar/10.jpg', description: '신비로운 능력을 가진 요정' },
+        { id: 4, name: '캐릭터4', image: '/assets/images/avatar/09.jpg', description: '빠르고 강력한 공격력의 전사' },
+        { id: 5, name: '캐릭터5', image: '/assets/images/avatar/08.jpg', description: '훌륭한 힐링 능력을 가진 힐러' }
+    ];
+
+
     return(
         <div className="col-lg-4 col-xxl-3" id="chatTabs" role="tablist">
             <div className="d-flex align-items-center mb-4 d-lg-none">
@@ -45,23 +56,13 @@ const Character = () => {
                             <div className="mt-4 h-100">
                                 <OverlayScrollbarsComponent className="chat-tab-list custom-scrollbar">
                                     <ul className="nav flex-column nav-pills nav-pills-soft">
-                                        <li>
-                                            <a className="nav-link text-start"
-                                               id="chat-3-tab"  >
-                                                <div className="d-flex">
-                                                    <div className="flex-shrink-0 avatar avatar-story me-2">
-                                                        <img className="avatar-img rounded-circle"
-                                                             src="/assets/images/avatar/12.jpg" alt=""/>
-                                                    </div>
-                                                    <div className="flex-grow-1 d-block">
-                                                        <h6 className="mb-0 mt-1">Billy Vasquez</h6>
-                                                        <div className="small text-secondary">Day sweetness
-                                                            😊
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            </a>
-                                        </li>
+                                        {characters.map((character) => (
+                                            <li key={character.id} onClick={() => onCharacterClick(character)}>
+                                                <a className="nav-link text-start" >
+                                                    <CharacterDisplay character={character} />
+                                                </a>
+                                            </li>
+                                        ))}
                                     </ul>
                                 </OverlayScrollbarsComponent>
                             </div>
