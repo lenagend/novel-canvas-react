@@ -6,6 +6,7 @@ import {useState} from "react";
 const CanvasContainer = () => {
     const [characterInfo, setCharacterInfo] = useState(null);
     const [textInput, setTextInput] = useState("");
+    const [dialogues, setDialogues] = useState([]);
 
     const onCharacterClick = (info) => {
         setCharacterInfo(info);
@@ -16,7 +17,12 @@ const CanvasContainer = () => {
     }
 
     const onTextSubmit = () => {
-
+        setDialogues(prevDialogues => [...prevDialogues, {
+            text: textInput,
+            character: characterInfo,
+            id: new Date().getTime()
+        }]);
+        setTextInput("");
     }
 
     return (
@@ -27,7 +33,7 @@ const CanvasContainer = () => {
                     <div className="col-lg-8 col-xxl-9">
                         <div className="card card-chat rounded-start-lg-0 border-start-lg-0">
                             <div className="card-body d-flex flex-column h-100">
-                                <Paper characterInfo={characterInfo} textInput={textInput} />
+                                <Paper dialogues={dialogues} />
                             </div>
                             <div className="card-footer">
                                 <TextArea onTextChange={onTextChange} onTextSubmit={onTextSubmit} characterInfo={characterInfo}/>
