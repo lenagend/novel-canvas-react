@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import CharacterDisplay from "./CharacterDisplay";
 
-const TextArea = ({ onTextChange, onTextSubmit, characterInfo }) => {
+const TextArea = ({ onTextChange, onTextSubmit, characterInfo, setCharacterInfo }) => {
     const [text, setText] = useState('');
 
     const handleChange = (event) => {
@@ -18,7 +18,9 @@ const TextArea = ({ onTextChange, onTextSubmit, characterInfo }) => {
         <div>
             {characterInfo && (
                 <div className="mb-3">
-                    <CharacterDisplay character={characterInfo} />
+                    <CharacterDisplay character={characterInfo} onDelete={() => {
+                        setCharacterInfo(null);
+                    }}/>
                 </div>
             )}
             <div className="d-sm-flex align-items-end">

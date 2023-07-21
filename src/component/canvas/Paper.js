@@ -12,17 +12,14 @@ const Paper = ({ dialogues }) => {
             >
                 {dialogues.map((dialogue) => {
 
-                    const textWithBreaks = dialogue.text.replace(/\n/g, "<br>");
-
-
                     return (
-                        <div key={dialogue.id} className="mt-3">
+                        <div key={dialogue.id} className="mt-1">
                             {dialogue.character ? (
                                 <div>
-                                    <DialogueDisplay character={dialogue.character} dialogueText={textWithBreaks} />
+                                    <DialogueDisplay character={dialogue.character} dialogueText={dialogue.text} />
                                 </div>
                             ) : (
-                                <span dangerouslySetInnerHTML={{__html: textWithBreaks}}></span>
+                                <p  style={{ whiteSpace: 'pre-wrap' }}>{dialogue.text}</p>
                             )}
                         </div>
                     );

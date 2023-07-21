@@ -1,6 +1,12 @@
 import React from 'react';
 
-const CharacterDisplay = ({ character }) => {
+const CharacterDisplay = ({ character, onDelete  }) => {
+
+    const handleClick = (event) => {
+        event.preventDefault();
+        onDelete();
+    };
+
     return (
         <div className="d-flex">
             <div className="flex-shrink-0 avatar me-2">
@@ -13,6 +19,9 @@ const CharacterDisplay = ({ character }) => {
                     {character.description}
                 </div>
             </div>
+            <a className="text-danger icon-md ms-auto" href="#" onClick={handleClick}>
+                <i className="bi bi-x-circle"></i>
+            </a>
         </div>
     );
 }

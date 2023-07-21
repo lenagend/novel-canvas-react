@@ -36,7 +36,7 @@ const CanvasContainer = () => {
                                 <Paper dialogues={dialogues} />
                             </div>
                             <div className="card-footer">
-                                <TextArea onTextChange={onTextChange} onTextSubmit={onTextSubmit} characterInfo={characterInfo}/>
+                                <TextArea onTextChange={onTextChange} onTextSubmit={onTextSubmit} characterInfo={characterInfo} setCharacterInfo={setCharacterInfo}/>
                             </div>
                         </div>
                     </div>

@@ -8,10 +8,11 @@ const DialogueDisplay = ({ character, dialogueText }) => {
                      src={character.image} alt={character.name + '의 프로필사진'}/>
             </div>
             <div className="flex-grow-1 d-block">
-                    <p className="dialogueText" dangerouslySetInnerHTML={{__html: dialogueText}}></p>
+                <p className="dialogueText" style={{ whiteSpace: 'pre-wrap' }}>{dialogueText}</p>
             </div>
         </div>
     );
 }
+
 
 export default DialogueDisplay;
