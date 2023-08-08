@@ -27,3 +27,13 @@
 .close:after {
     transform: rotate(-45deg);
 }
+
+.characterList {
+    height: 650px;
+}
+
+@media (max-width: 992px) {
+    .characterList {
+        height: 100%;
+    }
+}

@@ -28,7 +28,7 @@ const TextArea = ({ onTextChange, onTextSubmit, characterInfo, setCharacterInfo 
                     className="form-control mb-sm-0 mb-3 customTextArea"
                     data-autoresize
                     placeholder="여기에 입력하세요"
-                    rows="1"
+                    rows="5"
                     value={text}
                     onChange={handleChange}
                 />

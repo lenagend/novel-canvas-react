@@ -30,7 +30,3 @@
 .datePickerWrap input:focus {
     border-color: #0f6fec;  box-shadow: none; -webkit-box-shadow: none;
 }
-
-.customTextArea{
-    height: calc(1.5em + 7.5rem + 2px) !important;
-}

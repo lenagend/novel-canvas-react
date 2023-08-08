@@ -8,8 +8,16 @@ const Character = ({onCharacterClick}) => {
         { id: 2, name: '캐릭터2', image: '/assets/images/avatar/11.jpg', description: '밝고 활발한 성격의 마법사' },
         { id: 3, name: '캐릭터3', image: '/assets/images/avatar/10.jpg', description: '신비로운 능력을 가진 요정' },
         { id: 4, name: '캐릭터4', image: '/assets/images/avatar/09.jpg', description: '빠르고 강력한 공격력의 전사' },
-        { id: 5, name: '캐릭터5', image: '/assets/images/avatar/08.jpg', description: '훌륭한 힐링 능력을 가진 힐러' }
-    ];
+        { id: 5, name: '캐릭터5', image: '/assets/images/avatar/08.jpg', description: '훌륭한 힐링 능력을 가진 힐러' },
+        { id: 6, name: '캐릭터6', image: '/assets/images/avatar/01.jpg', description: '설명6' },
+        { id: 7, name: '캐릭터7', image: '/assets/images/avatar/02.jpg', description: '설명7' },
+        { id: 8, name: '캐릭터8', image: '/assets/images/avatar/03.jpg', description: '설명8' },
+        { id: 9, name: '캐릭터9', image: '/assets/images/avatar/04.jpg', description: '설명9' },
+        { id: 10, name: '캐릭터10', image: '/assets/images/avatar/05.jpg', description: '설명10' },
+        { id: 11, name: '캐릭터11', image: '/assets/images/avatar/06.jpg', description: '설명11' },
+        { id: 12, name: '캐릭터12', image: '/assets/images/avatar/07.jpg', description: '설명12' },
+     ];
+
 
 
     return(
@@ -53,14 +61,14 @@ const Character = ({onCharacterClick}) => {
                                     <i className="bi bi-search fs-5"></i>
                                 </button>
                             </form>
-                            <div className="mt-4 h-100">
-                                <OverlayScrollbarsComponent className="chat-tab-list custom-scrollbar">
+                            <div className="mt-4" >
+                                <OverlayScrollbarsComponent className="custom-scrollbar characterList">
                                     <ul className="nav flex-column nav-pills nav-pills-soft">
                                         {characters.map((character) => (
-                                            <li key={character.id} onClick={() => onCharacterClick(character)}>
-                                                <a className="nav-link text-start" >
-                                                    <CharacterDisplay character={character} />
-                                                </a>
+                                            <li key={character.id}>
+                                                <div className="nav-link text-start" >
+                                                    <CharacterDisplay character={character} onCharacterClick={onCharacterClick} />
+                                                </div>
                                             </li>
                                         ))}
                                     </ul>
